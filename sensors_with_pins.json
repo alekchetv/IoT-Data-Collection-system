@@ -1,0 +1,58 @@
+[
+    {
+        "sensor_name":"Углекислый газ",
+        "code":{
+            "glob":"int GasPin1 = ;float val3;JsonDocument doc4; String postData4;",
+            "setup": "pinMode(GasPin1, INPUT);",
+            "loop":"val3 = analogRead(GasPin1);doc4[\"mac_address\"] = mac; doc4[\"sensor_type\"] = \"Углекислый газ\"; doc4[\"output_data\"] = val3;serializeJson(doc4, postData4);\nclient.post(\"/data_records/send_data\", contentType, postData4);client.stop();delay(1000);"
+        }
+    },
+    {
+        "sensor_name":"Инфракрасный",
+        "code":{
+            "glob":"int inputPin = ; int val = 0;JsonDocument doc3; String postData3;",
+            "setup":"pinMode(inputPin, INPUT);",
+            "loop":"val = digitalRead(inputPin);doc3[\"mac_address\"] = mac; doc3[\"sensor_type\"] = \"Инфракрасный\"; doc3[\"output_data\"] = val;serializeJson(doc3, postData3);\nclient.post(\"/data_records/send_data\", contentType, postData3);client.stop();delay(1000);"
+        }
+    },
+    {
+        "sensor_name":"Температура",
+        "code":{
+            "glob":"#include <DHT.h>\n#define DHTPIN 17\n#define DHTTYPE DHT11\nDHT dht1(DHTPIN, DHTTYPE);JsonDocument doc1; String postData1;",
+            "setup":"dht1.begin();",
+            "loop":"float t = dht1.readTemperature(); doc1[\"mac_address\"] = mac; doc1[\"sensor_type\"] = \"Температура\"; doc1[\"output_data\"] = t;serializeJson(doc1, postData1);\nclient.post(\"/data_records/send_data\", contentType, postData1);client.stop();delay(1000);"
+        }
+    },
+    {
+        "sensor_name":"Влажность",
+        "code":{
+            "glob":"#include <DHT.h>\n#define DHTPIN 17\n#define DHTTYPE DHT11\nDHT dht2(DHTPIN, DHTTYPE);JsonDocument doc2; String postData2;",
+            "setup":"dht2.begin();",
+            "loop":"float f = dht2.readHumidity(); doc2[\"mac_address\"] = mac; doc2[\"sensor_type\"] = \"Влажность\"; doc2[\"output_data\"] = f;serializeJson(doc2, postData2);\nclient.post(\"/data_records/send_data\", contentType, postData2);client.stop();delay(1000);"
+        }
+    },
+    {
+        "sensor_name":"Угарный газ",
+        "code":{
+            "glob":"int GasPin2 = ;float val1;JsonDocument doc5; String postData5;",
+            "setup": "pinMode(GasPin2, INPUT);",
+            "loop":"val1 = analogRead(GasPin2);doc5[\"mac_address\"] = mac; doc5[\"sensor_type\"] = \"Угарный газ\"; doc5[\"output_data\"] = val1 ;serializeJson(doc5, postData5);\nclient.post(\"/data_records/send_data\", contentType, postData5);client.stop();delay(1000);"
+        }
+    },
+    {
+        "sensor_name":"Пары спирта",
+        "code":{
+            "glob":"int GasPin3 = ;float val2;JsonDocument doc6; String postData6;",
+            "setup": "pinMode(GasPin3, INPUT);",
+            "loop":"val2 = analogRead(GasPin3);doc6[\"mac_address\"] = mac; doc6[\"sensor_type\"] = \"Пары спирта\"; doc6[\"output_data\"] = val2;serializeJson(doc6, postData6);\nclient.post(\"/data_records/send_data\", contentType, postData6);client.stop();delay(1000);"
+        }
+    },
+    {
+        "sensor_name":"Расстояние",
+        "code":{
+            "glob":"#define SOUND_SPEED 0.034\nconst int trigPin = 5;const int echoPin = ; long duration;float distanceCm;JsonDocument doc7; String postData7;",
+            "setup": "pinMode(trigPin, OUTPUT);pinMode(echoPin, INPUT);",
+            "loop":"digitalWrite(trigPin, LOW);delayMicroseconds(2);digitalWrite(trigPin, HIGH);delayMicroseconds(10);digitalWrite(trigPin, LOW);duration = pulseIn(echoPin, HIGH);distanceCm = duration * SOUND_SPEED/2;doc6[\"mac_address\"] = mac; doc6[\"sensor_type\"] = \"Расстояние\"; doc6[\"output_data\"] = distanceCm;serializeJson(doc6, postData6);\nclient.post(\"/data_records/send_data\", contentType, postData6);client.stop();delay(1000);"
+        }
+    }
+]
