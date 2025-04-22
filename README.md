@@ -18,4 +18,15 @@ PlatformIO - для быстрой сборки .cpp файлов
 - Реализована возможность внедрения C++ кода в файл .cpp
 - Разработан механизм загрузки бинарных файлов прошивки через веб-интерфейс (OTA)
 - Реализован паттерн Repository в backend части
-# 
+# Внешний вид
+<p align="center">
+  <img src="https://github.com/alekchetv/IoT-Data-Collection-system/blob/main/1.gif" width="900" height="500" width="400"/>
+  <br>
+  <em>Веб-интерфейс</em>
+</p>
+<p align="center">
+  <img src="https://github.com/alekchetv/IoT-Data-Collection-system/blob/main/2.jpg" width="600" height="480" width="400"/>
+  <br>
+  <em>Сборка датчиков на базе ESP32</em>
+</p>
+
