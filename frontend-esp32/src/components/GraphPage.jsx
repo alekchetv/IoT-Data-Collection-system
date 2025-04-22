@@ -14,7 +14,6 @@ function Graph() {
 
 
     useEffect(() => {
-      // Загрузка данных об устройствах
 
       const fetchData = async () => {
           try {
@@ -66,7 +65,6 @@ function Graph() {
         <Chart sensor_data={sensor.output_data} sensor_type={sensor.sensor_type} />
       ))}
       </div>
-        <p>Вы перешли по кнопке!</p>
       </div>
     )
   }

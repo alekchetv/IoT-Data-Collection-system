@@ -9,6 +9,7 @@ from config import IP_HOST
 import codecs
 from sensors.schemas import Sensor
 
+
 env = Environment(
     loader=FileSystemLoader(".")
 )
@@ -26,9 +27,8 @@ async def json_pin_generate(device: Device):
         "Угарный газ": "pin_number4",
         "Пары спирта": "pin_number5",
         "Расстояние": "pin_number6",
-
-
     }
+
     template = env.get_template("sensors.json")
     print(device.sensors)
     types_in_query = []
@@ -46,7 +46,7 @@ async def json_pin_generate(device: Device):
     with open('sensors_with_pins.json', 'w', encoding="utf8") as file:
         file.write(rendered_page)
 
-    ### With Pins
+    # With Pins
     code_glob_list = []
     code_setup_list = []
     code_loop_list = []
@@ -60,25 +60,14 @@ async def json_pin_generate(device: Device):
                 code_setup_list.append(sensor["code"]["setup"])
                 code_loop_list.append(sensor["code"]["loop"])
     print(code_loop_list)
-    ### main.cpp generating ...
+    # main.cpp generating ...
     template = env.get_template("code_sample.txt")
-    rendered_page = template.render(code_glob_list=code_glob_list, code_setup_list=code_setup_list, code_loop_list=code_loop_list)
+    rendered_page = template.render(
+        code_glob_list=code_glob_list, code_setup_list=code_setup_list, code_loop_list=code_loop_list)
     with open('./pio_diplom/src/main.cpp', 'w', encoding="utf8") as file:
         file.write(rendered_page)
     cpp_upload(device.ip_address)
 
-def cpp_generate(device: Device):
-    template = env.get_template("code_sample.txt")
-    sensors = device.sensors
-    #     rendered_page = template.render(sensor_global = f"int AnalogPin = {pin_number};float analogValue;",
-    #                                 sensor_setup="pinMode(AnalogPin, INPUT);",
-    #                                 sensor_loop = "analogValue = analogRead(AnalogPin); Serial.print(\"Current value: \");Serial.println(analogValue); Serial.println(AnalogPin);")
-    # with open('./pio_test_diplom/src/main.cpp', 'w', encoding="utf8") as file:
-    #     file.write(rendered_page)
-    # template = env.get_template("sensors.json")
-    # rendered_page = template.render(pin_number = pin_number)
-    # with open('./sensors_with_pins.json', 'w', encoding="utf8") as file:
-    #     file.write(rendered_page)
 
 def cpp_upload(ip_address: str):
     template = env.get_template("upload_script.bat")
@@ -87,12 +76,14 @@ def cpp_upload(ip_address: str):
         file.write(rendered_page)
     os.system('start upload_script_ip.bat')
 
+
 async def script():
     db = await SensorTypeREPO.find_all()
     db_sensors = []
     for model in db:
         db_sensors.append(model.sensor_name)
-    sensors = ["Температура", "Влажность", "Угарный газ", "Расстояние","Пары спирта", "Инфракрасный", "Углекислый газ"]
+    sensors = ["Температура", "Влажность", "Угарный газ",
+               "Расстояние", "Пары спирта", "Инфракрасный", "Углекислый газ"]
     for sensor in sensors:
         if sensor not in db_sensors:
             await SensorTypeREPO.add(sensor_name=sensor)

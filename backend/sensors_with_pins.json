@@ -2,7 +2,7 @@
     {
         "sensor_name":"Углекислый газ",
         "code":{
-            "glob":"int GasPin1 = ;float val3;JsonDocument doc4; String postData4;",
+            "glob":"int GasPin1 = 34;float val3;JsonDocument doc4; String postData4;",
             "setup": "pinMode(GasPin1, INPUT);",
             "loop":"val3 = analogRead(GasPin1);doc4[\"mac_address\"] = mac; doc4[\"sensor_type\"] = \"Углекислый газ\"; doc4[\"output_data\"] = val3;serializeJson(doc4, postData4);\nclient.post(\"/data_records/send_data\", contentType, postData4);client.stop();delay(1000);"
         }
@@ -18,7 +18,7 @@
     {
         "sensor_name":"Температура",
         "code":{
-            "glob":"#include <DHT.h>\n#define DHTPIN 17\n#define DHTTYPE DHT11\nDHT dht1(DHTPIN, DHTTYPE);JsonDocument doc1; String postData1;",
+            "glob":"#include <DHT.h>\n#define DHTPIN \n#define DHTTYPE DHT11\nDHT dht1(DHTPIN, DHTTYPE);JsonDocument doc1; String postData1;",
             "setup":"dht1.begin();",
             "loop":"float t = dht1.readTemperature(); doc1[\"mac_address\"] = mac; doc1[\"sensor_type\"] = \"Температура\"; doc1[\"output_data\"] = t;serializeJson(doc1, postData1);\nclient.post(\"/data_records/send_data\", contentType, postData1);client.stop();delay(1000);"
         }
@@ -26,7 +26,7 @@
     {
         "sensor_name":"Влажность",
         "code":{
-            "glob":"#include <DHT.h>\n#define DHTPIN 17\n#define DHTTYPE DHT11\nDHT dht2(DHTPIN, DHTTYPE);JsonDocument doc2; String postData2;",
+            "glob":"#include <DHT.h>\n#define DHTPIN \n#define DHTTYPE DHT11\nDHT dht2(DHTPIN, DHTTYPE);JsonDocument doc2; String postData2;",
             "setup":"dht2.begin();",
             "loop":"float f = dht2.readHumidity(); doc2[\"mac_address\"] = mac; doc2[\"sensor_type\"] = \"Влажность\"; doc2[\"output_data\"] = f;serializeJson(doc2, postData2);\nclient.post(\"/data_records/send_data\", contentType, postData2);client.stop();delay(1000);"
         }

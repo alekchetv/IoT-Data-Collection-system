@@ -7,21 +7,20 @@ export default function DevicesTable() {
   const [devices, setDevices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showForm, setShowForm] = useState(false); // Управление состоянием формы
+  const [showForm, setShowForm] = useState(false);
   const [newDevice, setNewDevice] = useState({
     title: "",
     mac_address: "",
     is_active: false,
-    sensors: [] // Список датчиков
+    sensors: []
   });
-  const [sensorTypes, setSensorTypes] = useState([]); // Список типов датчиков
+  const [sensorTypes, setSensorTypes] = useState([]);
   const [sensorLoading, setSensorLoading] = useState(true);
-  const [postResponse, setPostResponse] = useState(null); // Ответ от сервера после POST запроса
+  const [postResponse, setPostResponse] = useState(null); 
   const [showChart, setShowChart] = useState(false);
   const navigate = useNavigate()
 
   useEffect(() => {
-    // Загрузка данных об устройствах
     axios.get("http://192.168.39.9:8000/devices/get")
       .then(response => {
         setDevices(response.data);
@@ -32,7 +31,6 @@ export default function DevicesTable() {
         setLoading(false);
       });
 
-    // Загрузка типов датчиков
     axios.get("http://192.168.39.9:8000/sensors/get_types")
       .then(response => {
         setSensorTypes(response.data);
@@ -47,12 +45,11 @@ export default function DevicesTable() {
   const handleDelete = (mac_address) => {
     axios
       .delete("http://192.168.39.9:8000/devices/delete", {
-        data: { mac_address }, // Передаем объект с mac_address в теле запроса
+        data: { mac_address },
       })
       .then((response) => {
         console.log("Устройство удалено:", response.data);
 
-        // Обновляем список устройств после удаления
         setDevices(devices.filter((device) => device.mac_address !== mac_address));
       })
       .catch((error) => {
@@ -62,33 +59,16 @@ export default function DevicesTable() {
   };
 
   const handleOpen = (mac_address) => {
-    // setShowChart((prev) => !prev);
     navigate('/graph',{
       state: { mac_address: mac_address }
     })
-    // axios
-    //   .delete("http://192.168.39.9:8000/devices/get", {
-    //     data: { mac_address }, // Передаем объект с mac_address в теле запроса
-    //   })
-    //   .then((response) => {
-    //     console.log("Устройство удалено:", response.data);
-
-    //     // Обновляем список устройств после удаления
-    //     setDevices(devices.filter((device) => device.mac_address !== mac_address));
-    //   })
-    //   .catch((error) => {
-    //     console.error("Ошибка при удалении устройства:", error);
-    //     setError("Ошибка при удалении устройства: " + error.message);
-    //   });
   };
 
   const handleEdit = (mac_address) => {
-    // Логика редактирования устройства
     console.log("Редактирование устройства с MAC-адресом: " + mac_address);
   };
 
   const handleAddDevice = () => {
-    // Преобразование структуры данных перед отправкой
     const formattedDevice = {
       title: newDevice.title,
       mac_address: newDevice.mac_address,
@@ -96,19 +76,15 @@ export default function DevicesTable() {
       sensors: newDevice.sensors.map(sensor => ({
         name: sensor.name,
         sensor_type: sensor.type,
-        error_value: parseFloat(sensor.error) || 0, // Если значение погрешности не введено, устанавливаем 0
+        error_value: parseFloat(sensor.error) || 0,
         measurement_unit: sensor.unit,
         pin: sensor.pin
       }))
     };
 
-    // Логика добавления устройства
     axios.post("http://192.168.39.9:8000/devices/add", formattedDevice)
       .then(response => {
-        // Выводим ответ от сервера после успешного добавления
         setPostResponse(response.data.detail);
-
-        // Обновляем список устройств
         setDevices([...devices, response.data]);
         setShowForm(false);
       })

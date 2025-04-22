@@ -11,10 +11,7 @@ WiFiClient wifi;
 
 
 
-#include <DHT.h>
-#define DHTPIN 17
-#define DHTTYPE DHT11
-DHT dht2(DHTPIN, DHTTYPE);JsonDocument doc2; String postData2;
+int GasPin1 = 34;float val3;JsonDocument doc4; String postData4;
 
 void setup() {
   Serial.begin(115200);
@@ -28,7 +25,7 @@ void setup() {
 	ESP.restart();
   }
 
-	dht2.begin();
+	pinMode(GasPin1, INPUT);
 
    ArduinoOTA
 	.onStart([]() {
@@ -70,8 +67,8 @@ void loop() {
   HttpClient client = HttpClient(wifi, "192.168.39.9", 8000);
   String contentType = "application/json";
   
-  float f = dht2.readHumidity(); doc2["mac_address"] = mac; doc2["sensor_type"] = "Влажность"; doc2["output_data"] = f;serializeJson(doc2, postData2);
-client.post("/data_records/send_data", contentType, postData2);client.stop();delay(1000);
+  val3 = analogRead(GasPin1);doc4["mac_address"] = mac; doc4["sensor_type"] = "Углекислый газ"; doc4["output_data"] = val3;serializeJson(doc4, postData4);
+client.post("/data_records/send_data", contentType, postData4);client.stop();delay(1000);
   
   delay(1000);
 }

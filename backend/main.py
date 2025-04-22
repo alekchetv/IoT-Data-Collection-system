@@ -23,7 +23,6 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-
 origins = [
     "http://localhost:5173",
     "http://localhost",
@@ -43,12 +42,10 @@ app.include_router(router_sensors)
 app.include_router(router_data_records)
 
 
-
 @app.post("/upload")
 async def upload(request: Request, sensor_list: sensor_list):
     for sensor in sensor_list.sensors:
         print(sensor)
 
-
-if __name__=="__main__":
+if __name__ == "__main__":
     uvicorn.run(app, host="192.168.39.9", port=8000)

@@ -10,10 +10,10 @@ import {
 } from "recharts";
 
 
-const Chart = ({sensor_data, sensor_type}) => {
+const Chart = ({ sensor_data, sensor_type }) => {
   return (
-    <div style={{ width: "100%", height: 400 }}>
-       <h3 className="text-lg font-semibold mb-4 text-center">
+    <div style={{ width: "100%", height: 250 }}>
+      <h3 className="text-lg font-semibold mb-1 text-center">
         {sensor_type}
       </h3>
       <ResponsiveContainer>
