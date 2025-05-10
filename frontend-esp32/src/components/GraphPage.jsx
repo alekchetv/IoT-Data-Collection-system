@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom'
 import Chart from './Charts'
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "./axios.js";
 import Header from "./Header"
 function Graph() {
     const location = useLocation()
@@ -21,7 +21,7 @@ function Graph() {
                   mac_address: mac_address,
                 };
             
-              axios.post("http://192.168.39.9:8000/data_records/get_data", formattedMac)
+                axiosInstance.post("/data_records/get_data", formattedMac)
                 .then(response => {
                   sensorData(response.data.data);
                   deviceTitle(response.data.device_title);

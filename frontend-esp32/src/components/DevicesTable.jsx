@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "./axios.js";
 import Chart from "./Charts";
 import { useNavigate } from 'react-router-dom'
 
@@ -21,7 +21,7 @@ export default function DevicesTable() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios.get("http://192.168.39.9:8000/devices/get")
+    axiosInstance.get("/devices/get")
       .then(response => {
         setDevices(response.data);
         setLoading(false);
@@ -31,7 +31,7 @@ export default function DevicesTable() {
         setLoading(false);
       });
 
-    axios.get("http://192.168.39.9:8000/sensors/get_types")
+      axiosInstance.get("/sensors/get_types")
       .then(response => {
         setSensorTypes(response.data);
         setSensorLoading(false);
@@ -43,8 +43,8 @@ export default function DevicesTable() {
   }, []);
 
   const handleDelete = (mac_address) => {
-    axios
-      .delete("http://192.168.39.9:8000/devices/delete", {
+    axiosInstance
+      .delete("/devices/delete", {
         data: { mac_address },
       })
       .then((response) => {
@@ -82,7 +82,7 @@ export default function DevicesTable() {
       }))
     };
 
-    axios.post("http://192.168.39.9:8000/devices/add", formattedDevice)
+    axiosInstance.post("/devices/add", formattedDevice)
       .then(response => {
         setPostResponse(response.data.detail);
         setDevices([...devices, response.data]);

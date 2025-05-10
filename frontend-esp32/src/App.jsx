@@ -12,8 +12,6 @@ function App() {
   return (
     <div>
       <Header />  
-
-     
       <main>
         <DevicesTable />
       </main>

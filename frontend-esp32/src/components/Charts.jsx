@@ -8,11 +8,11 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
+import SensorImageToggle from "./SensorImageToggle";
 
 const Chart = ({ sensor_data, sensor_type }) => {
   return (
-    <div style={{ width: "100%", height: 250 }}>
+    <div className="bg-white" style={{ width: "90%", height: 200, marginBottom: "100px" }}>
       <h3 className="text-lg font-semibold mb-1 text-center">
         {sensor_type}
       </h3>
@@ -30,6 +30,9 @@ const Chart = ({ sensor_data, sensor_type }) => {
           />
         </LineChart>
       </ResponsiveContainer>
+      <SensorImageToggle sensor_type={sensor_type}>
+
+      </SensorImageToggle>
     </div>
   );
 };

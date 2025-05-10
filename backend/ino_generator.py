@@ -5,7 +5,7 @@ from models import sensor_list
 from sensors.repository import SensorTypeREPO
 import asyncio
 from devices.schemas import Device
-from config import IP_HOST
+from config import VITE_IP_HOST
 import codecs
 from sensors.schemas import Sensor
 

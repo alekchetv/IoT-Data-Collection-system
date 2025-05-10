@@ -4,14 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "prepare-env": "node copy-env.mjs",
+    "dev": "npm run prepare-env && vite",
+    "build": "npm run prepare-env && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.17",
     "axios": "^1.8.4",
+    "dotenv": "^16.5.0",
+    "lucide-react": "^0.509.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.5.0",

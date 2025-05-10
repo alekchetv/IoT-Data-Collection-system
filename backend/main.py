@@ -9,7 +9,7 @@ from data_records.router import router as router_data_records
 from fastapi.middleware.cors import CORSMiddleware
 from ino_generator import script
 import asyncio
-from config import IP_HOST
+from config import VITE_IP_HOST, VITE_API_PORT
 from contextlib import asynccontextmanager
 
 
@@ -48,4 +48,4 @@ async def upload(request: Request, sensor_list: sensor_list):
         print(sensor)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="192.168.39.9", port=8000)
+    uvicorn.run(app, host=VITE_IP_HOST, port=int(VITE_API_PORT))

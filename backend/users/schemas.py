@@ -7,5 +7,8 @@ class UserForm(BaseModel):
     block_state: bool = False
 
 
+class UserLoginForm(BaseModel):
+    username: str
+    password: str
 
 
